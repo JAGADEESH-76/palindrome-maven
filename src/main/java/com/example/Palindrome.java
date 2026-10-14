@@ -1,59 +1,40 @@
 
 package com.example;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+public class Palindrome {
 
-class PalindromeTest {
+    public static boolean isPalindrome(String str) {
+        if (str == null) {
+            throw new IllegalArgumentException(
+                "String cannot be null"
+            );
+        }
 
-    // Positive test cases
-    @Test
-    void testPalindromeMadam() {
-        assertTrue(Palindrome.isPalindrome("madam"));
+        String text = str.replaceAll("\\s+", "")
+                         .toLowerCase();
+
+        int left = 0;
+        int right = text.length() - 1;
+
+        while (left < right) {
+            if (text.charAt(left) != text.charAt(right)) {
+                return false;
+            }
+
+            left++;
+            right--;
+        }
+
+        return true;
     }
 
-    @Test
-    void testPalindromeLevel() {
-        assertTrue(Palindrome.isPalindrome("level"));
-    }
+    public static void main(String[] args) {
+        String str = "madam";
 
-    @Test
-    void testPalindromeDifferentCase() {
-        assertTrue(Palindrome.isPalindrome("MadAm"));
-    }
-
-    @Test
-    void testPalindromeWithSpaces() {
-        assertTrue(Palindrome.isPalindrome("nurses run"));
-    }
-
-    // Negative test cases
-    @Test
-    void testNonPalindromeHello() {
-        assertFalse(Palindrome.isPalindrome("hello"));
-    }
-
-    @Test
-    void testNonPalindromeJava() {
-        assertFalse(Palindrome.isPalindrome("java"));
-    }
-
-    @Test
-    void testNonPalindromeWorld() {
-        assertFalse(Palindrome.isPalindrome("world"));
-    }
-
-    // Edge cases
-    @Test
-    void testEmptyString() {
-        assertTrue(Palindrome.isPalindrome(""));
-    }
-
-    @Test
-    void testNullString() {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> Palindrome.isPalindrome(null)
-        );
+        if (isPalindrome(str)) {
+            System.out.println(str + " is a palindrome");
+        } else {
+            System.out.println(str + " is not a palindrome");
+        }
     }
 }
